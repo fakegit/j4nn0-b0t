@@ -1,14 +1,12 @@
 # J4NN0 B0T
 
 [![https://telegram.me/J4NN0_Bot](https://img.shields.io/badge/💬_Bot_Telegram-J4NN0_Bot-blue.svg)](https://telegram.me/J4NN0_Bot) 
-[![https://pypi.org/project/python-telegram-bot/](https://img.shields.io/pypi/pyversions/python-telegram-bot.svg)](https://pypi.org/project/python-telegram-bot/)
-[![https://www.gnu.org/licenses/lgpl-3.0.html](https://img.shields.io/pypi/l/python-telegram-bot.svg)](https://www.gnu.org/licenses/lgpl-3.0.html)
 
-The BOT is hosted on [Heroku](https://www.heroku.com/) and it has been tested using Python `v3.9.7`. Also, [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) API and [sqlite3](https://docs.python.org/2/library/sqlite3.html) are needed.  
+The Bot is hosted on [Heroku](https://www.heroku.com/) and has been tested with Python `v3.9.7`.
 
 J4NN0 BOT main features:
-1. Store and retrieve data from a database: you can save/delete/show items on your personal list. 
-2. Set an alarm: when time is up the BOT will remind you what you asked for.
+1. Store, delete, and view items on your private list using simple chat commands.
+2. Set a timed reminder — the bot will notify you with your custom message when the time is up.
 
 Check it out on telegram: [@J4NN0_Bot](http://telegram.me/J4NN0_Bot)
 
@@ -17,25 +15,28 @@ Check it out on telegram: [@J4NN0_Bot](http://telegram.me/J4NN0_Bot)
 
 # Table of Contents
 - [Database](#database)
-- [BOT usage](#bot-usage)
+- [Bot usage](#bot-usage)
 - [How to host BOT on Heroku](#how-to-host-bot-on-heroku)
 - [Resources](#resources)
 
 # Database
 
-### list.db
+The bot uses a simple SQLite database consisting of a single table: `REMINDERS`
 
-It is composed by a single table, `REMINDERS`:
+Table Structure:
+- `CHATID`: Unique chat ID associated with the user.
+- `USRNAME`: Telegram username of the user.
+- `ITEM`: The item the user has added to their personal list.
 
-- `CHATID`: chat id for that user.
-- `USRNAME`: username of the user.
-- `ITEM`: the item added by the user.
+Whenever a user adds or removes items from their list, the changes are immediately reflected in the database (insertions or deletions from the `REMINDERS` table).
 
-Every time an user add/remove one or more item(s), these are added/removed to/from the db.
-    
-I also suggest you to download [DB Browser for SQLite](https://sqlitebrowser.org) to easily manage (create, read, delete, modify, etc.) the database(s). 
+To inspect or manage the database, you can use [DB Browser for SQLite](https://sqlitebrowser.org) to easily manage CRUD operations in SQLite databases via a graphical interface.
 
-# BOT usage
+### Note
+
+A local `.sqlite` database isn’t ideal for a finalized product. That said, SQLite was intentionally chosen for this side project to keep the setup simple and lightweight. It requires no external services, making it easy for anyone to run the bot locally or on platforms like Heroku without extra configuration.
+
+# Bot usage
 
 - ⭕ Developer
     - `/about`: to see info about developer
@@ -54,10 +55,6 @@ I also suggest you to download [DB Browser for SQLite](https://sqlitebrowser.org
     
 - 🤖 Info about bot
     - `/help`:  to have info about all commands.
-    
-#### Easter egg
-
-There are also a lot of Easter eggs (you can't find them in this code) that i wrote to have fun with my friends. Try to find them and enjoy!
 
 # How to host BOT on Heroku
 
@@ -95,7 +92,7 @@ There are also a lot of Easter eggs (you can't find them in this code) that i wr
        
    More info [here](https://devcenter.heroku.com/articles/python-runtimes#selecting-a-runtime).
    
-7. At this stage, if you haven't already, log in to your Heroku account and follow the prompts to create a new SSH public key
+7. If you haven't already, log in to your Heroku account and follow the prompts to create a new SSH public key
    
        heroku login
    
@@ -125,13 +122,13 @@ There are also a lot of Easter eggs (you can't find them in this code) that i wr
 
         heroku logs --tail
 
-#### Official Heroku Guide
-
-Checkout also the offical heroku guide: [Getting Started on Heroku with Python](https://devcenter.heroku.com/articles/getting-started-with-python#set-up).
-
 # Resources
 
-- [First steps](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Extensions-%E2%80%93-Your-first-Bot)
-- [Telegram Bot’s documentation](https://python-telegram-bot.readthedocs.io/en/stable/index.html)
-- [Telegram Bot API](https://core.telegram.org/bots/api#forcereply)
+- [Your first bot](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Extensions---Your-first-Bot)
+- [Python Telegram Bot](https://github.com/python-telegram-bot/python-telegram-bot)
 - [Code snippets](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Code-snippets#general-code-snippets)
+- Officilia Telegram Bot docs
+    - [Telegram Bot API](https://core.telegram.org/bots/api#forcereply)
+    - [Telegram Bot’s documentation](https://python-telegram-bot.readthedocs.io/en/stable/index.html)
+- [Getting Started on Heroku with Python](https://devcenter.heroku.com/articles/getting-started-with-python#set-up)
+- [Sqlite3](https://docs.python.org/2/library/sqlite3.html)
